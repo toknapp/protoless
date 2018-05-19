@@ -8,6 +8,7 @@ import io.protoless.tests.ProtolessSuite
 import io.protoless.tests.samples.{Colors, TestCaseAllFields, TestCaseCustomMappingRepeated, TestCaseNested}
 import io.protoless.tests.samples.Colors.Color
 import io.protoless.tests.samples.TestCaseNested.InnerNested
+import io.protoless.tag
 
 class HandCraftedEncoderDecoderSuite extends ProtolessSuite with EncoderDecoderAssertions {
 
@@ -31,7 +32,8 @@ class HandCraftedEncoderDecoderSuite extends ProtolessSuite with EncoderDecoderA
       s <- input.read[String]
       by <- input.read[ByteString]
       c <- input.read[Color]
-    } yield TestCaseAllFields(d, f, i, l, ui, ul, si, sl, fi, fl, sfi, sfl, b, s, by, c)
+      uiz <- input.read[Int @@ Unsigned]
+    } yield TestCaseAllFields(d, f, i, l, ui, ul, si, sl, fi, fl, sfi, sfl, b, s, by, c, uiz)
   )
 
   implicit val encoderTestCaseAllFields: Encoder[TestCaseAllFields] = Encoder.instance { t => output =>
@@ -51,6 +53,7 @@ class HandCraftedEncoderDecoderSuite extends ProtolessSuite with EncoderDecoderA
     output.write(t.s)
     output.write(t.by)
     output.write(t.c)
+    output.write(t.uiz)
   }
 
   implicit val decoderTestCaseNested: Decoder[TestCaseNested] = Decoder.instance { input =>

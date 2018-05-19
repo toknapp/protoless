@@ -25,6 +25,7 @@ message Optional {
   string string_field = 14;
   bytes bytes_field = 15;
   Color color_field = 16;
+  uint32 zeroed_uint32_field = 17;
 }
 
 message Repeated {

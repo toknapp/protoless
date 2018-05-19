@@ -21,7 +21,8 @@ case class TestCaseAllFields(
   b: Boolean,
   s: String,
   by: ByteString,
-  c: Colors.Color
+  c: Colors.Color,
+  uiz: Int @@ Unsigned
 )
 
 object TestCaseAllFields extends TestCase[TestCaseAllFields] {
@@ -41,7 +42,8 @@ object TestCaseAllFields extends TestCase[TestCaseAllFields] {
     b = true,
     s = "Я тебя люблю",
     by = ByteString.copyFrom("Coucou", "utf8"),
-    c = Colors.Green
+    c = Colors.Green,
+    uiz = unsigned(0)
   )
 
   override val protobuf: ProtoSerializable = ProtoSerializable(Schemas.Optional.newBuilder()
@@ -61,5 +63,6 @@ object TestCaseAllFields extends TestCase[TestCaseAllFields] {
     .setStringField(source.s)
     .setBytesField(source.by)
     .setColorField(Color.GREEN)
+    .setZeroedUint32Field(source.uiz)
     .build())
 }
