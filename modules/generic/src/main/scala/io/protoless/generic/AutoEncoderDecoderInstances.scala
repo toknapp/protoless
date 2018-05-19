@@ -1,12 +1,13 @@
-package io.protoless.generic.decoding
+package io.protoless.generic
 
-import com.google.protobuf.CodedInputStream
+import com.google.protobuf.{CodedInputStream, CodedOutputStream}
 import shapeless.{Generic, HList, Nat}
 
 import io.protoless.messages.Decoder.Result
 import io.protoless.messages.decoders.{AutoDecoder, IncrementalDecoder}
+import io.protoless.messages.encoders.{AutoEncoder, IncrementalEncoder}
 
-trait AutoDecoderInstances extends IncrementalDecoderInstances {
+trait AutoEncoderDecoderInstances extends IncrementalEncoderDecoderInstances {
 
   implicit def decodeAuto[A, R <: HList](implicit
     gen: Generic.Aux[A, R],
@@ -17,6 +18,16 @@ trait AutoDecoderInstances extends IncrementalDecoderInstances {
         case Right(repr) => Right(gen.from(repr))
         case l @ Left(_) => l.asInstanceOf[Result[A]]
       }
+    }
+  }
+
+  implicit def encodeAuto[A, R <: HList](implicit
+    gen: Generic.Aux[A, R],
+    encoder: IncrementalEncoder[R, Nat._1]
+  ): AutoEncoder[A] = new AutoEncoder[A] {
+    override def encode(a: A, output: CodedOutputStream): Unit = {
+      encoder.encode(gen.to(a), output)
+      output.flush()
     }
   }
 
