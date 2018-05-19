@@ -14,13 +14,13 @@ import io.protoless.messages.decoders.IncrementalDecoder
 private[protoless] class SemiAutoEncoder[A](val underlying: Encoder[A])
 private[protoless] class SemiAutoDecoder[A](val underlying: Decoder[A])
 
-private[protoless] trait SemiAutoEncoderDecoderInstances extends IncrementalEncoderDecoderInstances {
+private[protoless] trait SemiAutoEncoderDecoderInstances  {
 
   implicit def encodeSemiAutoInstance[A](implicit encoder: IncrementalEncoder[A, Nat._1]): SemiAutoEncoder[A] = {
-    new SemiAutoEncoder[A](encoder)
+    new SemiAutoEncoder[A](encoder.underlying)
   }
 
   implicit def decodeSemiAutoInstance[A](implicit decoder: IncrementalDecoder[A, Nat._1]): SemiAutoDecoder[A] = {
-    new SemiAutoDecoder[A](decoder)
+    new SemiAutoDecoder[A](decoder.underlying)
   }
 }

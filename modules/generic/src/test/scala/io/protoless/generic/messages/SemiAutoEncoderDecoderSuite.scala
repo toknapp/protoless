@@ -6,11 +6,10 @@ import io.protoless.messages.{Decoder, Encoder}
 import io.protoless.tests.ProtolessSuite
 import io.protoless.tests.instances.EqualityInstances
 import io.protoless.tests.samples._
-import io.protoless.generic.SemiAutoEncoderDecoderInstances
 
-class SemiAutoEncoderDecoderSuite extends ProtolessSuite with EqualityInstances with EncoderDecoderAssertions with SemiAutoEncoderDecoderInstances {
+class SemiAutoEncoderDecoderSuite extends ProtolessSuite with EqualityInstances with EncoderDecoderAssertions {
 
-  import io.protoless.generic.semiauto.{deriveEncoder, deriveDecoder}
+  import io.protoless.generic.semiauto._
 
   implicit val decoderTestCaseAllFields: Decoder[TestCaseAllFields] = deriveDecoder[TestCaseAllFields]
   implicit val decoderTestCaseOptionalFields: Decoder[TestCaseOptionalFields] = deriveDecoder[TestCaseOptionalFields]

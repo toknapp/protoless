@@ -16,13 +16,13 @@ package object generic {
     * You can still derive [[messages.decoders.CustomMappingDecoder]] and [[messages.encoders.CustomMappingEncoder]]
     * with `semiauto.deriveDecoder[A, L]` or by summoning a decoder with `CustomMappingDecoder[A, HList]` (idem for Encoders).
     */
-  object auto extends AutoEncoderDecoderInstances
+  object auto extends AutoEncoderDecoderInstances with IncrementalEncoderDecoderInstances with CustomMappingEncoderDecoderInstances
 
   /**
     * Allows to manually derive [[Decoder]] and [[Encoder]],
     * either with `Automatic` strategy or `Custom Mapping` strategy.
     */
-  object semiauto extends SemiAutoEncoderDecoderInstances {
+  object semiauto extends SemiAutoEncoderDecoderInstances with IncrementalEncoderDecoderInstances with CustomMappingEncoderDecoderInstances {
 
     /**
       * Derive an [[Decoder]] to decode a type `A` from a protobuf message, for which
@@ -84,7 +84,7 @@ package object generic {
       * @tparam A Result of the decoder
       * @tparam L Mapping from `A` parameters to Protobuf field index
       */
-    def deriveDecoder[A, L <: HList](implicit decoder: CustomMappingDecoder[A, L]): Decoder[A] = decoder
+    def deriveDecoder[A, L <: HList](implicit decoder: CustomMappingDecoder[A, L]): Decoder[A] = decoder.underlying
 
     /**
       * Derive an [[Encoder]] to encode a type `A` in a protobuf message, for which
@@ -146,6 +146,6 @@ package object generic {
       * @tparam A Type to encode
       * @tparam L Mapping from `A` parameters to Protobuf field index
       */
-    def deriveEncoder[A, L <: HList](implicit encoder: CustomMappingEncoder[A, L]): Encoder[A] = encoder
+    def deriveEncoder[A, L <: HList](implicit encoder: CustomMappingEncoder[A, L]): Encoder[A] = encoder.underlying
   }
 }

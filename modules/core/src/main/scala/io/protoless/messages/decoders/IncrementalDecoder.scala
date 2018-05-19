@@ -14,7 +14,7 @@ import io.protoless.messages.Decoder
   */
 @implicitNotFound("No IncrementalDecoder found for type ${A} and ${N}.")
 @annotation.inductive
-trait IncrementalDecoder[A, N <: Nat] extends Decoder[A]
+class IncrementalDecoder[A, N <: Nat](val underlying: Decoder[A])
 
 /**
   * Utilities for [[IncrementalDecoder]]

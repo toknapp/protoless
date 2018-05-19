@@ -9,11 +9,10 @@ import io.protoless.tests.ProtolessSuite
 import io.protoless.tests.instances.EqualityInstances
 import io.protoless.tests.samples._
 import io.protoless.tests.samples.TestCaseNestedCustomMapping.InnerNestedCustomMapping
-import io.protoless.generic.SemiAutoEncoderDecoderInstances
 
-trait CustomMappingEncoderDecoderSuite extends ProtolessSuite with EqualityInstances with EncoderDecoderAssertions with SemiAutoEncoderDecoderInstances {
+trait CustomMappingEncoderDecoderSuite extends ProtolessSuite with EqualityInstances with EncoderDecoderAssertions {
 
-  import io.protoless.generic.semiauto.{deriveEncoder, deriveDecoder}
+  import io.protoless.generic.semiauto._
 
   // Fields number specified with Nat
   type IndexSimple = Nat._2 :: Nat._5 :: Nat._13 :: Nat._16 :: HNil

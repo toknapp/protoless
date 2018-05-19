@@ -17,7 +17,7 @@ import io.protoless.messages.Decoder
   */
 @implicitNotFound("No CustomMappingDecoder found for type ${A} and ${L}.")
 @annotation.inductive
-trait CustomMappingDecoder[A, L <: HList] extends Decoder[A]
+class CustomMappingDecoder[A, L <: HList](val underlying: Decoder[A])
 
 /**
   * Utilities for [[CustomMappingDecoder]]

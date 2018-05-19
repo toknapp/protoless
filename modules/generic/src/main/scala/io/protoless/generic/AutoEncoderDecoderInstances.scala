@@ -7,14 +7,14 @@ import io.protoless.messages.Decoder.Result
 import io.protoless.messages.decoders.{AutoDecoder, IncrementalDecoder}
 import io.protoless.messages.encoders.{AutoEncoder, IncrementalEncoder}
 
-trait AutoEncoderDecoderInstances extends IncrementalEncoderDecoderInstances {
+trait AutoEncoderDecoderInstances {
 
   implicit def decodeAuto[A, R <: HList](implicit
     gen: Generic.Aux[A, R],
     decoder: IncrementalDecoder[R, Nat._1]
   ): AutoDecoder[A] = new AutoDecoder[A] {
     override def decode(input: CodedInputStream): Result[A] = {
-      decoder.decode(input) match {
+      decoder.underlying.decode(input) match {
         case Right(repr) => Right(gen.from(repr))
         case l @ Left(_) => l.asInstanceOf[Result[A]]
       }
@@ -26,7 +26,7 @@ trait AutoEncoderDecoderInstances extends IncrementalEncoderDecoderInstances {
     encoder: IncrementalEncoder[R, Nat._1]
   ): AutoEncoder[A] = new AutoEncoder[A] {
     override def encode(a: A, output: CodedOutputStream): Unit = {
-      encoder.encode(gen.to(a), output)
+      encoder.underlying.encode(gen.to(a), output)
       output.flush()
     }
   }
