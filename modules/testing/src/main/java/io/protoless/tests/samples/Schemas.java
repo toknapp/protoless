@@ -218,6 +218,11 @@ public final class Schemas {
      * <code>uint32 zeroed_uint32_field = 17;</code>
      */
     int getZeroedUint32Field();
+
+    /**
+     * <code>uint64 zeroed_uint64_field = 18;</code>
+     */
+    long getZeroedUint64Field();
   }
   /**
    * Protobuf type {@code io.protoless.tests.samples.Optional}
@@ -249,6 +254,7 @@ public final class Schemas {
       bytesField_ = com.google.protobuf.ByteString.EMPTY;
       colorField_ = 0;
       zeroedUint32Field_ = 0;
+      zeroedUint64Field_ = 0L;
     }
 
     @java.lang.Override
@@ -367,6 +373,11 @@ public final class Schemas {
             case 136: {
 
               zeroedUint32Field_ = input.readUInt32();
+              break;
+            }
+            case 144: {
+
+              zeroedUint64Field_ = input.readUInt64();
               break;
             }
           }
@@ -578,6 +589,15 @@ public final class Schemas {
       return zeroedUint32Field_;
     }
 
+    public static final int ZEROED_UINT64_FIELD_FIELD_NUMBER = 18;
+    private long zeroedUint64Field_;
+    /**
+     * <code>uint64 zeroed_uint64_field = 18;</code>
+     */
+    public long getZeroedUint64Field() {
+      return zeroedUint64Field_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -640,6 +660,9 @@ public final class Schemas {
       }
       if (zeroedUint32Field_ != 0) {
         output.writeUInt32(17, zeroedUint32Field_);
+      }
+      if (zeroedUint64Field_ != 0L) {
+        output.writeUInt64(18, zeroedUint64Field_);
       }
       unknownFields.writeTo(output);
     }
@@ -716,6 +739,10 @@ public final class Schemas {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(17, zeroedUint32Field_);
       }
+      if (zeroedUint64Field_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt64Size(18, zeroedUint64Field_);
+      }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
       return size;
@@ -769,6 +796,8 @@ public final class Schemas {
       result = result && colorField_ == other.colorField_;
       result = result && (getZeroedUint32Field()
           == other.getZeroedUint32Field());
+      result = result && (getZeroedUint64Field()
+          == other.getZeroedUint64Field());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -822,6 +851,9 @@ public final class Schemas {
       hash = (53 * hash) + colorField_;
       hash = (37 * hash) + ZEROED_UINT32_FIELD_FIELD_NUMBER;
       hash = (53 * hash) + getZeroedUint32Field();
+      hash = (37 * hash) + ZEROED_UINT64_FIELD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getZeroedUint64Field());
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -985,6 +1017,8 @@ public final class Schemas {
 
         zeroedUint32Field_ = 0;
 
+        zeroedUint64Field_ = 0L;
+
         return this;
       }
 
@@ -1024,6 +1058,7 @@ public final class Schemas {
         result.bytesField_ = bytesField_;
         result.colorField_ = colorField_;
         result.zeroedUint32Field_ = zeroedUint32Field_;
+        result.zeroedUint64Field_ = zeroedUint64Field_;
         onBuilt();
         return result;
       }
@@ -1116,6 +1151,9 @@ public final class Schemas {
         }
         if (other.getZeroedUint32Field() != 0) {
           setZeroedUint32Field(other.getZeroedUint32Field());
+        }
+        if (other.getZeroedUint64Field() != 0L) {
+          setZeroedUint64Field(other.getZeroedUint64Field());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1646,6 +1684,32 @@ public final class Schemas {
       public Builder clearZeroedUint32Field() {
         
         zeroedUint32Field_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long zeroedUint64Field_ ;
+      /**
+       * <code>uint64 zeroed_uint64_field = 18;</code>
+       */
+      public long getZeroedUint64Field() {
+        return zeroedUint64Field_;
+      }
+      /**
+       * <code>uint64 zeroed_uint64_field = 18;</code>
+       */
+      public Builder setZeroedUint64Field(long value) {
+        
+        zeroedUint64Field_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint64 zeroed_uint64_field = 18;</code>
+       */
+      public Builder clearZeroedUint64Field() {
+        
+        zeroedUint64Field_ = 0L;
         onChanged();
         return this;
       }
@@ -8930,7 +8994,7 @@ public final class Schemas {
   static {
     java.lang.String[] descriptorData = {
       "\n\037src/main/protobuf/schemas.proto\022\032io.pr" +
-      "otoless.tests.samples\"\251\003\n\010Optional\022\024\n\014do" +
+      "otoless.tests.samples\"\306\003\n\010Optional\022\024\n\014do" +
       "uble_field\030\001 \001(\001\022\023\n\013float_field\030\002 \001(\002\022\023\n" +
       "\013int32_field\030\003 \001(\005\022\023\n\013int64_field\030\004 \001(\003\022" +
       "\024\n\014uint32_field\030\005 \001(\r\022\024\n\014uint64_field\030\006 " +
@@ -8941,35 +9005,36 @@ public final class Schemas {
       "\010\022\024\n\014string_field\030\016 \001(\t\022\023\n\013bytes_field\030\017" +
       " \001(\014\0226\n\013color_field\030\020 \001(\0162!.io.protoless" +
       ".tests.samples.Color\022\033\n\023zeroed_uint32_fi" +
-      "eld\030\021 \001(\r\"\214\003\n\010Repeated\022\024\n\014double_field\030\001" +
-      " \003(\001\022\023\n\013float_field\030\002 \003(\002\022\023\n\013int32_field" +
-      "\030\003 \003(\005\022\023\n\013int64_field\030\004 \003(\003\022\024\n\014uint32_fi" +
-      "eld\030\005 \003(\r\022\024\n\014uint64_field\030\006 \003(\004\022\024\n\014sint3" +
-      "2_field\030\007 \003(\021\022\024\n\014sint64_field\030\010 \003(\022\022\025\n\rf" +
-      "ixed32_field\030\t \003(\007\022\025\n\rfixed64_field\030\n \003(" +
-      "\006\022\026\n\016sfixed32_field\030\013 \003(\017\022\026\n\016sfixed64_fi" +
-      "eld\030\014 \003(\020\022\022\n\nbool_field\030\r \003(\010\022\024\n\014string_" +
-      "field\030\016 \003(\t\022\023\n\013bytes_field\030\017 \003(\014\0226\n\013colo" +
-      "r_field\030\020 \003(\0162!.io.protoless.tests.sampl" +
-      "es.Color\"\262\003\n\005OneOf\022\026\n\014double_field\030\001 \001(\001" +
-      "H\000\022\025\n\013float_field\030\002 \001(\002H\000\022\025\n\013int32_field" +
-      "\030\003 \001(\005H\000\022\025\n\013int64_field\030\004 \001(\003H\000\022\026\n\014uint3" +
-      "2_field\030\005 \001(\rH\000\022\026\n\014uint64_field\030\006 \001(\004H\000\022" +
-      "\026\n\014sint32_field\030\007 \001(\021H\000\022\026\n\014sint64_field\030" +
-      "\010 \001(\022H\000\022\027\n\rfixed32_field\030\t \001(\007H\000\022\027\n\rfixe" +
-      "d64_field\030\n \001(\006H\000\022\030\n\016sfixed32_field\030\013 \001(" +
-      "\017H\000\022\030\n\016sfixed64_field\030\014 \001(\020H\000\022\024\n\nbool_fi" +
-      "eld\030\r \001(\010H\000\022\026\n\014string_field\030\016 \001(\tH\000\022\025\n\013b" +
-      "ytes_field\030\017 \001(\014H\000\0228\n\013color_field\030\020 \001(\0162" +
-      "!.io.protoless.tests.samples.ColorH\000B\007\n\005" +
-      "field\"W\n\006Custom\022\022\n\nbigdecimal\030\001 \001(\t\022\016\n\006b" +
-      "igint\030\002 \001(\t\022\014\n\004uuid\030\003 \003(\022\022\r\n\005short\030\004 \001(\005" +
-      "\022\014\n\004char\030\005 \001(\005\"\243\001\n\006Nested\022\t\n\001d\030\001 \001(\001\022.\n\002" +
-      "m1\030\002 \001(\0132\".io.protoless.tests.samples.Cu" +
-      "stom\022.\n\002m2\030\003 \001(\0132\".io.protoless.tests.sa" +
-      "mples.Custom\022.\n\002rm\030\004 \003(\0132\".io.protoless." +
-      "tests.samples.Custom*(\n\005Color\022\t\n\005BLACK\020\000" +
-      "\022\t\n\005WHITE\020\001\022\t\n\005GREEN\020\002b\006proto3"
+      "eld\030\021 \001(\r\022\033\n\023zeroed_uint64_field\030\022 \001(\004\"\214" +
+      "\003\n\010Repeated\022\024\n\014double_field\030\001 \003(\001\022\023\n\013flo" +
+      "at_field\030\002 \003(\002\022\023\n\013int32_field\030\003 \003(\005\022\023\n\013i" +
+      "nt64_field\030\004 \003(\003\022\024\n\014uint32_field\030\005 \003(\r\022\024" +
+      "\n\014uint64_field\030\006 \003(\004\022\024\n\014sint32_field\030\007 \003" +
+      "(\021\022\024\n\014sint64_field\030\010 \003(\022\022\025\n\rfixed32_fiel" +
+      "d\030\t \003(\007\022\025\n\rfixed64_field\030\n \003(\006\022\026\n\016sfixed" +
+      "32_field\030\013 \003(\017\022\026\n\016sfixed64_field\030\014 \003(\020\022\022" +
+      "\n\nbool_field\030\r \003(\010\022\024\n\014string_field\030\016 \003(\t" +
+      "\022\023\n\013bytes_field\030\017 \003(\014\0226\n\013color_field\030\020 \003" +
+      "(\0162!.io.protoless.tests.samples.Color\"\262\003" +
+      "\n\005OneOf\022\026\n\014double_field\030\001 \001(\001H\000\022\025\n\013float" +
+      "_field\030\002 \001(\002H\000\022\025\n\013int32_field\030\003 \001(\005H\000\022\025\n" +
+      "\013int64_field\030\004 \001(\003H\000\022\026\n\014uint32_field\030\005 \001" +
+      "(\rH\000\022\026\n\014uint64_field\030\006 \001(\004H\000\022\026\n\014sint32_f" +
+      "ield\030\007 \001(\021H\000\022\026\n\014sint64_field\030\010 \001(\022H\000\022\027\n\r" +
+      "fixed32_field\030\t \001(\007H\000\022\027\n\rfixed64_field\030\n" +
+      " \001(\006H\000\022\030\n\016sfixed32_field\030\013 \001(\017H\000\022\030\n\016sfix" +
+      "ed64_field\030\014 \001(\020H\000\022\024\n\nbool_field\030\r \001(\010H\000" +
+      "\022\026\n\014string_field\030\016 \001(\tH\000\022\025\n\013bytes_field\030" +
+      "\017 \001(\014H\000\0228\n\013color_field\030\020 \001(\0162!.io.protol" +
+      "ess.tests.samples.ColorH\000B\007\n\005field\"W\n\006Cu" +
+      "stom\022\022\n\nbigdecimal\030\001 \001(\t\022\016\n\006bigint\030\002 \001(\t" +
+      "\022\014\n\004uuid\030\003 \003(\022\022\r\n\005short\030\004 \001(\005\022\014\n\004char\030\005 " +
+      "\001(\005\"\243\001\n\006Nested\022\t\n\001d\030\001 \001(\001\022.\n\002m1\030\002 \001(\0132\"." +
+      "io.protoless.tests.samples.Custom\022.\n\002m2\030" +
+      "\003 \001(\0132\".io.protoless.tests.samples.Custo" +
+      "m\022.\n\002rm\030\004 \003(\0132\".io.protoless.tests.sampl" +
+      "es.Custom*(\n\005Color\022\t\n\005BLACK\020\000\022\t\n\005WHITE\020\001" +
+      "\022\t\n\005GREEN\020\002b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8988,7 +9053,7 @@ public final class Schemas {
     internal_static_io_protoless_tests_samples_Optional_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_io_protoless_tests_samples_Optional_descriptor,
-        new java.lang.String[] { "DoubleField", "FloatField", "Int32Field", "Int64Field", "Uint32Field", "Uint64Field", "Sint32Field", "Sint64Field", "Fixed32Field", "Fixed64Field", "Sfixed32Field", "Sfixed64Field", "BoolField", "StringField", "BytesField", "ColorField", "ZeroedUint32Field", });
+        new java.lang.String[] { "DoubleField", "FloatField", "Int32Field", "Int64Field", "Uint32Field", "Uint64Field", "Sint32Field", "Sint64Field", "Fixed32Field", "Fixed64Field", "Sfixed32Field", "Sfixed64Field", "BoolField", "StringField", "BytesField", "ColorField", "ZeroedUint32Field", "ZeroedUint64Field", });
     internal_static_io_protoless_tests_samples_Repeated_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_io_protoless_tests_samples_Repeated_fieldAccessorTable = new

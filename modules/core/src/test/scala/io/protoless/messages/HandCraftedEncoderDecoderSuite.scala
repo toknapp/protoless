@@ -33,7 +33,8 @@ class HandCraftedEncoderDecoderSuite extends ProtolessSuite with EncoderDecoderA
       by <- input.read[ByteString]
       c <- input.read[Color]
       uiz <- input.read[Int @@ Unsigned]
-    } yield TestCaseAllFields(d, f, i, l, ui, ul, si, sl, fi, fl, sfi, sfl, b, s, by, c, uiz)
+      ulz <- input.read[Long @@ Unsigned]
+    } yield TestCaseAllFields(d, f, i, l, ui, ul, si, sl, fi, fl, sfi, sfl, b, s, by, c, uiz, ulz)
   )
 
   implicit val encoderTestCaseAllFields: Encoder[TestCaseAllFields] = Encoder.instance { t => output =>
@@ -54,6 +55,7 @@ class HandCraftedEncoderDecoderSuite extends ProtolessSuite with EncoderDecoderA
     output.write(t.by)
     output.write(t.c)
     output.write(t.uiz)
+    output.write(t.ulz)
   }
 
   implicit val decoderTestCaseNested: Decoder[TestCaseNested] = Decoder.instance { input =>

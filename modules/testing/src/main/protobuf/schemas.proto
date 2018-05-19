@@ -26,6 +26,7 @@ message Optional {
   bytes bytes_field = 15;
   Color color_field = 16;
   uint32 zeroed_uint32_field = 17;
+  uint64 zeroed_uint64_field = 18;
 }
 
 message Repeated {

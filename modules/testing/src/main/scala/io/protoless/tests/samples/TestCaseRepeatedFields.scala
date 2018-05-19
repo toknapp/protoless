@@ -31,8 +31,8 @@ object TestCaseRepeatedFields extends TestCase[TestCaseRepeatedFields] {
     f = Seq(Float.MaxValue, Float.MinValue),
     i = Seq(Int.MaxValue, Int.MinValue),
     l = Seq(Long.MaxValue, Long.MinValue),
-    ui = Seq(unsigned(1), unsigned(Int.MaxValue)),
-    ul = Seq(unsigned(0), unsigned(Int.MaxValue)),
+    ui = Seq(unsigned(1), unsigned(0), unsigned(Int.MaxValue)),
+    ul = Seq(unsigned(0L), unsigned(Int.MaxValue), unsigned(0L)),
     si = Seq(signed(Int.MinValue), signed(Int.MaxValue)),
     sl = Seq(signed(Long.MinValue), signed(Long.MaxValue)),
     fi = Seq(fixed(Int.MaxValue), fixed(Int.MinValue)),
@@ -50,8 +50,8 @@ object TestCaseRepeatedFields extends TestCase[TestCaseRepeatedFields] {
     .addFloatField(source.f(0)).addFloatField(source.f(1))
     .addInt32Field(source.i(0)).addInt32Field(source.i(1))
     .addInt64Field(source.l(0)).addInt64Field(source.l(1))
-    .addUint32Field(source.ui(0)).addUint32Field(source.ui(1))
-    .addUint64Field(source.ul(0)).addUint64Field(source.ul(1))
+    .addUint32Field(source.ui(0)).addUint32Field(source.ui(1)).addUint32Field(source.ui(2))
+    .addUint64Field(source.ul(0)).addUint64Field(source.ul(1)).addUint64Field(source.ul(2))
     .addSint32Field(source.si(0)).addSint32Field(source.si(1))
     .addSint64Field(source.sl(0)).addSint64Field(source.sl(1))
     .addFixed32Field(source.fi(0)).addFixed32Field(source.fi(1))

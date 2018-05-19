@@ -263,7 +263,7 @@ object FieldDecoder extends MidPriorityFieldDecoder {
   /**
     * @group DecodingNative
     */
-  implicit final val decodeULong: RepeatableFieldDecoder[Long @@ Unsigned] = native(cis => tag.unsigned(cis.readUInt64()), FieldType.UINT64)
+  implicit final val decodeULong: RepeatableFieldDecoder[Long @@ Unsigned] = native(cis => tag.unsigned(cis.readUInt64()), FieldType.UINT64, Some(tag.unsigned(0)))
 
   /**
     * @group DecodingNative
