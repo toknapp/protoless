@@ -100,7 +100,7 @@ object FieldEncoder extends MidPriorityFieldEncoder {
   /**
     * @group EncodingNative
     */
-  implicit final val encodeUnsignedInt: RepeatableFieldEncoder[Int @@ Unsigned] = native(_.writeUInt32, _.writeUInt32NoTag, FieldType.UINT32)
+  implicit final val encodeUnsignedInt: RepeatableFieldEncoder[Int @@ Unsigned] = native(_.writeUInt32, _.writeUInt32NoTag, FieldType.UINT32, Some(unsigned(0)))
 
   /**
     * @group EncodingNative
@@ -358,13 +358,19 @@ trait FieldEncoderHelpers {
     *
     * @group Utilities
     */
-  final protected def native[A](nativeWrite: COS => (Int, A) => Unit, nativeWriteRepeated: COS => A => Unit, nativeFieldType: FieldType): RepeatableFieldEncoder[A] = new RepeatableFieldEncoder[A] {
+  final protected def native[A](nativeWrite: COS => (Int, A) => Unit, nativeWriteRepeated: COS => A => Unit, nativeFieldType: FieldType, default: Option[A] = None): RepeatableFieldEncoder[A] = new RepeatableFieldEncoder[A] {
     override def write(index: Int, a: A, output: COS): Unit = {
-      nativeWrite(output)(index, a)
+      default match {
+        case Some(`a`) =>
+        case _ => nativeWrite(output)(index, a)
+      }
     }
 
     override def writeRepeated(a: A, output: COS): Unit = {
-      nativeWriteRepeated(output)(a)
+      default match {
+        case Some(`a`) =>
+        case _ => nativeWriteRepeated(output)(a)
+      }
     }
 
     override def fieldType: FieldType = nativeFieldType

@@ -203,13 +203,18 @@ object FieldDecoder extends MidPriorityFieldDecoder {
     *
     * @group Utilities
     */
-  final private[protoless] def native[A](r: CIS => A, expectedType: FieldType): RepeatableFieldDecoder[A] = new RepeatableFieldDecoder[A] {
+  final private[protoless] def native[A](r: CIS => A, expectedType: FieldType, default: Option[A] = None): RepeatableFieldDecoder[A] = new RepeatableFieldDecoder[A] {
     override def fieldType: FieldType = expectedType
     override def read(input: CIS, index: Int): Result[A] = {
       val tag = readTag(input, index)
 
       // Check that the fieldNumber match the current index
-      if (tag.fieldNumber != index) Left(MissingField(index, expectedType, tag.wireType, tag.fieldNumber))
+      if (tag.fieldNumber != index) {
+        default match {
+          case Some(a) => Right(a)
+          case _ => Left(MissingField(index, expectedType, tag.wireType, tag.fieldNumber))
+        }
+      }
       // Check if the type match, except if fieldType=2 for repeatedfields
       else if (tag.wireType != 2 && tag.wireType != expectedType.getWireType) Left(WrongFieldType(expectedType, tag.fieldNumber, tag.wireType))
       // else try to decode the input
@@ -233,7 +238,7 @@ object FieldDecoder extends MidPriorityFieldDecoder {
   /**
     * @group DecodingNative
     */
-  implicit final val decodeUInt: RepeatableFieldDecoder[Int @@ Unsigned] = native(cis => tag.unsigned(cis.readUInt32()), FieldType.UINT32)
+  implicit final val decodeUInt: RepeatableFieldDecoder[Int @@ Unsigned] = native(cis => tag.unsigned(cis.readUInt32()), FieldType.UINT32, Some(tag.unsigned(0)))
 
   /**
     * @group DecodingNative
